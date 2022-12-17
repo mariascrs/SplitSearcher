@@ -1,0 +1,1 @@
+Each of the files `N.m` in this directory contain the polynomials denoted *Q<sub>1,2</sub>* and *Q<sub>2,3</sub>* in Lemma 3.
