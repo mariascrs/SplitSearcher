@@ -1,4 +1,4 @@
-This repository contains the code which is attached to [*An algorithm for efficient detection of (N,N)-splittings and its application to the isogeny problem in dimension 2*](link) by Maria Corte-Real Santos, Craig Costello, and Sam Frengley. All of the code in this repository was written in [`Magma`](http://magma.maths.usyd.edu.au/magma/). 
+This repository contains the code which is attached to [*An algorithm for efficient detection of (N,N)-splittings and its application to the isogeny problem in dimension 2*](https://eprint.iacr.org/2022/1736) by Maria Corte-Real Santos, Craig Costello, and Sam Frengley. All of the code in this repository was written in [`Magma`](http://magma.maths.usyd.edu.au/magma/). 
 
 There are two directories:
 
