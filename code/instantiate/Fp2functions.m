@@ -35,7 +35,8 @@ GetTonelliShanksConstants:=function(p)
     c7:=c2+1;
     c8:=1/c0; //#1/c0 in Michael Scott's paper
     c5:=c0^(Integers()!(c4));
-    constants:=[c0,c1,c2,c3,c4,c5,c6,c7,c8];
+    c9 := 2^(c2 - 1);
+    constants:=[c0,c1,c2,c3,c4,c5,c6,c7,c8,c9];
 
     return Fp,Fp2,constants;
 
@@ -133,11 +134,12 @@ InvSqrt:=function(u,v,constants,mulcount)
     // -----------------------------------------------------------------------------------------------
 
 
-    c0,c1,c2,c3,c4,c5,c6,c7,c8:=Explode(constants); //may remove later
+    c0,c1,c2,c3,c4,c5,c6,c7,c8,c9:=Explode(constants); //may remove later
     
     c4:=Integers()!c4;
     c6:=Integers()!c6;
     c7:=Integers()!c7;
+    c9:=Integers()!c9;
 
     u0:=ElementToSequence(u)[1];
     u1:=ElementToSequence(u)[2];
@@ -145,7 +147,8 @@ InvSqrt:=function(u,v,constants,mulcount)
     v1:=ElementToSequence(v)[2];
 
     U:=u0^2;                                                        mulcount+:=1;
-    U+:=u1^2;                                                       mulcount+:=1;
+    tmp:=u1^2;                                                      mulcount+:=1;
+    U:=U-c0*tmp;                                                    mulcount+:=1;
 
     t0:=v0; 
     t1:=v1;
@@ -163,11 +166,13 @@ InvSqrt:=function(u,v,constants,mulcount)
     Xinv:=Y^2;                                                      mulcount+:=1;
     Xinv:=Xinv^2;                                                   mulcount+:=1;
     Xinv:=Xinv*X;                                                   mulcount+:=1;
-    Xinv,mulcount:=Expon(Xinv,c6,mulcount);  
-    Uinv,mulcount:=Expon(X,c6-1,mulcount);
-
+    Xinv,mulcount:=Expon(Xinv,c9,mulcount);  
+    tmp,mulcount:=Expon(X,c9-1,mulcount);
+    Xinv:=Xinv*tmp;                                                 mulcount+:=1;
+    
     Uinv:=U*t2;                                                     mulcount+:=1;
     Uinv:=Uinv*Xinv;                                                mulcount+:=1;
+    
     u0:=u0*Uinv;                                                    mulcount+:=1;
     u1:=-u1*Uinv;                                                   mulcount+:=1;
     rtX,_,mulcount:=TonelliShanksUpdate(X,Y,[c2,c3,c0,c5],mulcount);
@@ -211,18 +216,20 @@ InvBaseSqrt:=function(u,v,constants,mulcount)
     // InvBaseSqrt: special case of InvSqrt where v is in the base field GF(p)
     // -----------------------------------------------------------------------------------------------
 
-    c0,c1,c2,c3,c4,c5,c6,c7,c8:=Explode(constants); //may remove later
+    c0,c1,c2,c3,c4,c5,c6,c7,c8,c9:=Explode(constants); //may remove later
     
     c4:=Integers()!c4;
     c6:=Integers()!c6;
     c7:=Integers()!c7;
+    c9:=Integers()!c9;
 
     u0:=ElementToSequence(u)[1];
     u1:=ElementToSequence(u)[2];
     v:=Parent(u0)!v;
 
     U:=u0^2;                                                        mulcount+:=1;
-    U+:=u1^2;                                                       mulcount+:=1;                                         
+    tmp:=u1^2;                                                      mulcount+:=1;
+    U:=U-c0*tmp;                                                    mulcount+:=1;
 
     X:=U^2;                                                         mulcount+:=1;
     X*:=v;                                                          mulcount+:=1;
@@ -233,9 +240,9 @@ InvBaseSqrt:=function(u,v,constants,mulcount)
     Y4:=Y4^2;                                                       mulcount+:=1;
     XY4:=X*Y4;                                                      mulcount+:=1;
 
-    Xinv,mulcount:=Expon(XY4,c6,mulcount);  
-    Uinv,mulcount:=Expon(X,c6-1,mulcount);
-    Xinv:=Uinv*Xinv;                                                mulcount+:=1;
+    Xinv,mulcount:=Expon(XY4,c9,mulcount);  
+    tmp,mulcount:=Expon(X,c9-1,mulcount);
+    Xinv:=tmp*Xinv;                                                 mulcount+:=1;
     Uinv:=U*v;                                                      mulcount+:=1;
     Uinv:=Uinv*Xinv;                                                mulcount+:=1;
 
