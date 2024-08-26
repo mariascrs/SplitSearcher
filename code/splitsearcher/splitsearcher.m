@@ -3,20 +3,19 @@
 // ----------------------------------------------------------------------------------
 
 
-SplitSearcher:=function(as,constants,splitsearcher_flag,split_after_22_flag,calN,INVARIANTS, RESULTANTS, IMAGES, DIV_INFO, MONS_RES)
+SplitSearcher:=function(start_pt,constants,splitsearcher_flag,split_after_22_flag,calN,INVARIANTS, RESULTANTS, IMAGES, DIV_INFO, MONS_RES)
 
     steps:=0;
     found:=false;
     mulcount:=0;
-    starting_points:=as;
 
     // to tell us if there was a case where one of the IC invariants vanished
     alpha_zero:=false;
 
-    H:=StartingSeed(as);
+    H:=StartingSeed(start_pt);
 
     while not found do
-
+        as := start_pt;
         H,next_steps:=Hash(H);
         i:=0;
         N := -1;
@@ -71,14 +70,14 @@ SplitSearcher:=function(as,constants,splitsearcher_flag,split_after_22_flag,calN
     if splitsearcher_flag and N ne -1 then 
         if split_after_22_flag then 
             solution := next_steps[1..i] cat [neighbour];
-            return starting_points,solution,N,rs,steps+2,mulcount;
+            return start_pt,solution,N,rs,steps+2,mulcount;
         else 
             solution := next_steps[1..i];
-            return starting_points,solution,N,rs,steps+1,mulcount;
+            return start_pt,solution,N,rs,steps+1,mulcount;
         end if;
     else 
         solution := next_steps[1..i];
-        return starting_points,solution,N,rs,steps,mulcount;
+        return start_pt,solution,N,rs,steps,mulcount;
     end if;
 
 end function;
