@@ -1,0 +1,1 @@
+This directory contains the file `invsfromquads.m`, which contains the functions needed to implement improvement 5 in section 7. The main function in this file is `IsogenousInvariantsFromWeierstrass`, which, given the Weierstrass points of a genus 2 curve C, will compute the Igusa--Clebsch invariants of all the (2,2)-isogenous Jacobians from Jac(C).

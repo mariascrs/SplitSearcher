@@ -1,1 +1,0 @@
-This directory contains the polynomials *F<sub>N</sub>(I<sub>2</sub>, I<sub>4</sub>, I<sub>6</sub>, I<sub>10</sub>)* discussed in Section 4.4. 

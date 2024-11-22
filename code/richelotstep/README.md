@@ -1,1 +1,0 @@
-This directory contains code needed to take a walk using Richelot isogenies. In particular, the functions `RIsog()` (described in Algorithm 2) and `StartingSeed` (see Section 3.2) are implemented in `richelot.m`. 
